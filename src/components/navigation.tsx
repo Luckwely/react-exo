@@ -3,6 +3,8 @@ import { ButtonPrimary } from "./ui/button-primary";
 import { useState, type Dispatch, type SetStateAction } from "react";
 import { FaTimes } from "react-icons/fa";
 import type { Food } from "../types/Food";
+import Container from "./container";
+import { NavLink } from "react-router-dom";
 
 export type FoodCart = {
     id: string,
@@ -68,58 +70,63 @@ export default function Navigation({cart, setCart}: Props) {
     }
     
   return (
-    <nav className="flex justify-between items-center">
-        <a href="">Logo</a>
-        <div className="flex gap-3 items-center relative">
-            <ButtonPrimary onClick={openCart} >
-                <div className="relative">
-                    {isOpenCart ? <FaTimes/> : <FaCartShopping />}
-                    {!isOpenCart && (
+    <Container>
+        <nav className="flex justify-between items-center">
+            <NavLink to="/">Logo</NavLink>
+            <div className="flex gap-3 items-center relative">
+                <NavLink to={"/foods"}>
+                    foods
+                </NavLink>
+                <ButtonPrimary onClick={openCart} >
+                    <div className="relative">
+                        {isOpenCart ? <FaTimes/> : <FaCartShopping />}
+                        {!isOpenCart && (
 
-                        <span className="absolute top-[-1rem] bg-red-500 text-white w-5 h-5 rounded-full">{cart.length}</span>
-                    )}
-                </div>
-            </ButtonPrimary>
-            {isOpenCart && (
-                <div  className="bg-gray-200 border-1 rounded-3xl border-black p-4 w-[400px] absolute top-9 right-0">
-                    <h2>Mon Panier</h2>
-                    {cart.length <= 0 ? (
-                            <div className="text-center mt-8 text-red-500">
-                            Panier vide!!
-                        </div>
-                    ): (
-                        <div>
-                            {cart.map((cartItem) => 
-                                 <div className="flex gap-1 mb-2">
-                                    <div className="w-[100px]">
-                                        <img className="h-[50px] w-full object-cover" src={cartItem.imageUrl} alt="" />
-                                    </div>
-                                    <div className="flex justify-between">
-                                        <div>
-                                            <h3>{cartItem.title}</h3>
-                                            <h3>{cartItem.price} €</h3>
-                                            <h3 className="flex items-center gap-6">
-                                                <span>Qty: </span>
-                                                <div className="flex gap-3 items-center">
-                                                    <span onClick={() => handleDecrease(cartItem.id)}><FaMinus /></span>
-                                                    <span>{cartItem.qty}</span>
-                                                    <span onClick={() => handleIncrease(cartItem.id)}><FaPlus /></span>
-                                                </div>
-                                            </h3>
+                            <span className="absolute top-[-1rem] bg-red-500 text-white w-5 h-5 rounded-full">{cart.length}</span>
+                        )}
+                    </div>
+                </ButtonPrimary>
+                {isOpenCart && (
+                    <div  className="bg-gray-200 border-1 rounded-3xl border-black p-4 w-[400px] absolute top-9 right-0">
+                        <h2>Mon Panier</h2>
+                        {cart.length <= 0 ? (
+                                <div className="text-center mt-8 text-red-500">
+                                Panier vide!!
+                            </div>
+                        ): (
+                            <div>
+                                {cart.map((cartItem) => 
+                                    <div className="flex gap-1 mb-2">
+                                        <div className="w-[100px]">
+                                            <img className="h-[50px] w-full object-cover" src={cartItem.imageUrl} alt="" />
                                         </div>
-                                        <div>
-                                            <span onClick={() => handleDeleteCart(cartItem.id)} className="text-red-500">
-                                                <FaTrash />
-                                            </span>
+                                        <div className="flex justify-between">
+                                            <div>
+                                                <h3>{cartItem.title}</h3>
+                                                <h3>{cartItem.price} €</h3>
+                                                <h3 className="flex items-center gap-6">
+                                                    <span>Qty: </span>
+                                                    <div className="flex gap-3 items-center">
+                                                        <span onClick={() => handleDecrease(cartItem.id)}><FaMinus /></span>
+                                                        <span>{cartItem.qty}</span>
+                                                        <span onClick={() => handleIncrease(cartItem.id)}><FaPlus /></span>
+                                                    </div>
+                                                </h3>
+                                            </div>
+                                            <div>
+                                                <span onClick={() => handleDeleteCart(cartItem.id)} className="text-red-500">
+                                                    <FaTrash />
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-                                </div>
-                            )}
-                        </div>
-                    )}
-                </div>
-            )}
-        </div>
-    </nav>
+                                )}
+                            </div>
+                        )}
+                    </div>
+                )}
+            </div>
+        </nav>
+    </Container>
   )
 }

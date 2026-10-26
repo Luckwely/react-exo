@@ -11,6 +11,9 @@ import Modal from './components/modal'
 import { FaTimes } from 'react-icons/fa'
 import FoodCreate from './components/food/food.create'
 import { foodFaker } from './data/data'
+import { BrowserRouter, Route, Routes } from 'react-router-dom'
+import FoodPage from './pages/FoodPage'
+import HomePage from './pages/HomePage'
 
 export default function App() {
 
@@ -22,6 +25,26 @@ export default function App() {
   }
   return (
     <>
+      <BrowserRouter>
+        <Navigation cart={cart} setCart={setCart} />
+        <Routes>
+          <Route index element={
+            <HomePage />
+          } />
+          <Route path='/foods' element= {
+            <FoodPage
+              openModal={openModal}
+              isOpenModal={isOpenModal}
+              foods={foods}
+              setFoods={setFoods}
+              cart={cart}
+              setCart={setCart}
+              setIsOpenModal={setIsOpenModal}
+            />
+          }/>
+        </Routes>
+
+      </BrowserRouter>
       <Toaster
         position="top-center"
         reverseOrder={false}
@@ -49,28 +72,6 @@ export default function App() {
           },
         }}
       />
-      <div className=' p-6 rounded-2xl w-[80%] mx-auto my-5'>
-        <Navigation cart={cart} setCart={setCart} />
-
-        <div className='flex justify-between items-center mt-10'>
-
-          <h1 className='text-gray-800 text-4xl font-extrabold'>Fast food</h1>
-          <ButtonPrimary onClick={openModal}>
-            {isOpenModal ? <FaTimes /> : <IoMdAdd />}  
-          </ButtonPrimary>
-        </div>
-
-        {isOpenModal && (
-          <Modal onClose={setIsOpenModal}>
-            <FoodCreate setFoods={setFoods} onClose={setIsOpenModal} />
-          </Modal> 
-        )}
-
-        {/* <Car /> */}
-
-        <FoodContainer setCart={setCart} cart={cart} foods={foods} />
-
-      </div>
     </>
   )
 }
