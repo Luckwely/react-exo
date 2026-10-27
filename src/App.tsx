@@ -14,6 +14,7 @@ import { foodFaker } from './data/data'
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import FoodPage from './pages/FoodPage'
 import HomePage from './pages/HomePage'
+import FormTestPage from './pages/FormTestPage'
 
 export default function App() {
 
@@ -30,6 +31,9 @@ export default function App() {
         <Routes>
           <Route index element={
             <HomePage />
+          } />
+          <Route path='/form' element={
+            <FormTestPage />
           } />
           <Route path='/foods' element= {
             <FoodPage

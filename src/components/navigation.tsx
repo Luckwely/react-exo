@@ -72,10 +72,13 @@ export default function Navigation({cart, setCart}: Props) {
   return (
     <Container>
         <nav className="flex justify-between items-center">
-            <NavLink to="/">Logo</NavLink>
+            <NavLink to="/" >Logo</NavLink>
             <div className="flex gap-3 items-center relative">
                 <NavLink to={"/foods"}>
                     foods
+                </NavLink>
+                <NavLink to={"/form"}>
+                    forms
                 </NavLink>
                 <ButtonPrimary onClick={openCart} >
                     <div className="relative">
